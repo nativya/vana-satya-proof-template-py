@@ -1,6 +1,6 @@
 # Vana Satya Proof of Contribution - Python Template
 
-This repository serves as a template for creating a [proof of contribution](https://docs.vana.org/vana/core-concepts/key-elements/proof-of-contribution) tasks using Python. It is executed on Vana's Satya Network, a group of highly confidential and secure compute nodes that can validate data without revealing its contents to the node operator.
+This repository serves as a template for creating a [proof of contribution](https://docs.vana.org/docs/proof-of-contribution/) tasks using Python. It is executed on Vana's Satya Network, a group of highly confidential and secure compute nodes that can validate data without revealing its contents to the node operator.
 
 ## Overview
 
@@ -19,10 +19,13 @@ This template provides a basic structure for building proof tasks that:
   "ownership": 1.0, // A score between 0 and 1 to verify the ownership of the file
   "quality": 0.6024096385542169, // A score between 0 and 1 to show the quality of the file
   "uniqueness": 0, // A score between 0 and 1 to show unique the file is, compared to others in the DLP
-  "attributes": { // Custom attributes that can be added to the proof to provide extra context about the encrypted file
+  "attributes": { // Custom attributes added to the proof to provide extra context, written offchain in IPFS
     "total_score": 0.5,
     "score_threshold": 0.83,
     "email_verified": true
+  },
+  "metadata": { // Custom attributes added to the proof to provide extra context, written onchain
+    "dlp_id": 1234
   }
 }
 ```
@@ -35,7 +38,8 @@ The project is designed to work with Intel TDX (Trust Domain Extensions), provid
     - `proof.py`: Implements the proof generation logic
     - `__main__.py`: Entry point for the proof execution
     - `models/`: Data models for the proof system
-- `demo/`: Contains sample input and output for testing
+- `input/`: Contains a sample input file for testing. In production, the Satya node will mount the decrypted data point to the /input directory of the docker container
+- `output/`: Results output from the container is written here, this is passed to the Satya node after execution
 - `Dockerfile`: Defines the container image for the proof task
 - `requirements.txt`: Python package dependencies
 
@@ -52,7 +56,7 @@ To use this template:
 
 The main proof logic is implemented in `my_proof/proof.py`. To customize it, update the `Proof.generate()` function to change how input files are processed.
 
-The proof can be configured using environment variables:
+The proof can be configured using environment variables, eg:
 
 - `USER_EMAIL`: The email address of the data contributor, to verify data ownership
 
