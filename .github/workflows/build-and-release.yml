@@ -4,7 +4,7 @@ on:
   push:
     branches: [main,nativya]
   pull_request:
-    branches: [main]
+    branches: [main,nativya]
 
 permissions:
   contents: write
