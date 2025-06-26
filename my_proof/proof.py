@@ -8,7 +8,7 @@ from langdetect import detect, lang_detect_exception
 
 from .models.proof_response import ProofResponse
 
-# Constants for validation
+
 MIN_TEXT_LENGTH = 50
 MAX_TEXT_LENGTH = 5000
 
